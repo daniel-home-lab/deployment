@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: lre-preprod
+  name: poc
   namespace: argocd
 spec:
   syncPolicy:
@@ -21,7 +21,7 @@ spec:
         notifications.argoproj.io/subscribe.on-health-degraded.erdsWebhook: ""
         notifications.argoproj.io/subscribe.on-sync-failed.erdsWebhook: ""
     spec:
-      project: applications
+      project: default
       syncPolicy:
         automated: null
       source:
