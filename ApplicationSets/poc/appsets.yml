@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: lre-preprod
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - git:
+        repoURL: https://github.com/daniel-home-lab/deployment
+        revision: main
+        directories:
+          - path: environment/poc/pocketbase
+
+  template:
+    metadata:
+      name: "{{path.basename}}-poc-service"
+      annotations:
+        notifications.argoproj.io/subscribe.on-deployed.erdsWebhook: ""
+        notifications.argoproj.io/subscribe.on-health-degraded.erdsWebhook: ""
+        notifications.argoproj.io/subscribe.on-sync-failed.erdsWebhook: ""
+    spec:
+      project: applications
+      syncPolicy:
+        automated: null
+      source:
+        repoURL: https://github.com/daniel-home-lab/deployment
+        targetRevision: "main"
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: poc

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE,PATCH
+    # nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 150m
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 16k
+  name: pocketbase-poc-ing
+  namespace: poc
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: pocketbase.idlre.online
+      http:
+        paths:
+          - backend:
+              service:
+                name: pocketbase-svc
+                port:
+                  number: 8090
+            path: /
+            pathType: Prefix
