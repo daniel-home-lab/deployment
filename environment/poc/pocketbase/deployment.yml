@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: pocketbase-poc
   namespace: poc
+spec:
   replicas: 1
   selector:
     matchLabels:
