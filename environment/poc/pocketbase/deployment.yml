@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: pocketbase
-          image: verb5/pocketbase:ac7fb3007433
+          image: verb5/pocketbase:5329c09
           ports:
             - containerPort: 8090
           resources:
