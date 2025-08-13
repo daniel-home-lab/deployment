@@ -21,6 +21,7 @@ spec:
       containers:
         - name: pocketbase
           image: verb5/pocketbase:5329c09
+          command: ["/app/pocketbase","serve","--http=0.0.0.0:8090"]
           ports:
             - containerPort: 8090
           resources:
